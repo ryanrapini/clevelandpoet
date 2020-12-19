@@ -7,7 +7,7 @@ use App\Models\Group;
 
 class JoinCodeProvider extends Base
 {
-    public function customName()
+    public function joinCode()
     {
         return Group::createJoinCode();
     }

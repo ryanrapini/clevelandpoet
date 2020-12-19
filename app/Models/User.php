@@ -37,5 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    const PHONE_NUMBER_TYPES_ENUM = ['cell', 'home', 'work'];
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }

@@ -6,15 +6,20 @@ use App\Models\Document;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use App\Enums\GroupMemberType;
 
 class PageController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        $user = $request->user();
+
         $users = User::all();
-        $groups = Group::all();
+        $allgroups = Group::all();
+        $groups = $user->groups;
         return view('dashboard', [
             'users' => $users,
+            'allgroups' => $allgroups,
             'groups' => $groups
         ]);
     }
@@ -27,7 +32,25 @@ class PageController extends Controller
             return view('groups.join', ['target_group' => $target_group]);
         }
 
-        return view('groups.invalid');
+        return view('error', ['message' => 'Invalid group key!']);
+
+    }
+
+    public function confirmJoinGroup(Request $request, $join_code)
+    {
+        $user = $request->user();
+        $target_group = Group::where('join_code', $join_code)->first();
+
+        if($target_group) {
+            if($target_group->users()->where('users.id', $user->id)->exists()){
+                return view('error', ['message' => 'You are already a member of that group!']);
+            }
+            $user->groups()->attach($target_group, ['member_type' => GroupMemberType::Member]);
+
+            return view('success', ['message' => 'Joined this group successfully!']);
+        }
+
+        return view('error', ['message' => 'Invalid group key!']);
 
     }
 }

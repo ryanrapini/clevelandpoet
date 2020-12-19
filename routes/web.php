@@ -21,5 +21,6 @@ Route::get('/', function () {
 Route::get('/dashboard', [PageController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::get('/join/{join_code}', [PageController::class, 'joinGroup']);
+Route::get('/join/{join_code}/confirm', [PageController::class, 'confirmJoinGroup']);
 
 require __DIR__.'/auth.php';

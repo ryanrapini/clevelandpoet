@@ -21,10 +21,11 @@ class GroupFactory extends Factory
      */
     public function definition()
     {
+        static $number = 1;
         $this->faker->addProvider(new \App\Faker\JoinCodeProvider($this->faker));
 
         return [
-            'name' => ,
+            'name' => 'Group ' . $number++,
             'join_code' => $this->faker->unique()->joinCode(),
             'is_joinable' => $this->faker->boolean(80),
         ];

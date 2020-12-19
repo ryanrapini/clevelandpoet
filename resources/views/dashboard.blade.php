@@ -8,19 +8,26 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    @foreach ($users as $user)
-                        <p>{{ $user->id }}</p>
-                        <p>{{ $user->name }}</p>
-                        <p>{{ $user->email }}</p>
-                        <img src="{{ $user->photo_url }}"></img>
-                    @endforeach
-                </div>
-                <div class="p-6 bg-white border-b">
-                    @foreach ($groups as $group)
-                        <p>{{ $group->name }}</p>
-                        <p>{{ $group->join_code }}</p>
-                    @endforeach
+                <div class="flex p-6 bg-white border-b border-gray-200">
+                    <div class="flex-grow prose">
+                        @foreach ($users as $user)
+                            <p>{{ $user->id }}</p>
+                            <p>{{ $user->name }}</p>
+                            <p>{{ $user->email }}</p>
+                            <img src="{{ $user->photo_url }}"></img>
+                        @endforeach
+                    </div>
+                    <div class="flex-grow">
+                        <h4 class="prose">My Groups</h4>
+                        @foreach ($groups as $group)
+                            <a class="btn" href="{{ url('group/' . $group->join_code) }}">{{ $group->name }}</a>
+                        @endforeach
+                        <h4>All Groups</h4>
+                        @foreach ($allgroups as $group)
+                            <p>{{ $group->name }} 
+                                <a href="{{ url('join/' . $group->join_code) }}">Join</a></p>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
