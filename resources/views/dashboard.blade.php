@@ -1,35 +1,49 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex p-6 bg-white border-b border-gray-200">
-                    <div class="flex-grow prose">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+            <div class="pt-4 ">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">All Users</h5>
+                    <p class="card-text">
                         @foreach ($users as $user)
-                            <p>{{ $user->id }}</p>
-                            <p>{{ $user->name }}</p>
-                            <p>{{ $user->email }}</p>
-                            <img src="{{ $user->photo_url }}"></img>
+                        <p>{{ $user->id }}</p>
+                        <p>{{ $user->name }}</p>
+                        <p>{{ $user->email }}</p>
+                        <img src="{{ $user->photo_url }}"></img>
                         @endforeach
-                    </div>
-                    <div class="flex-grow">
-                        <h4 class="prose">My Groups</h4>
-                        @foreach ($groups as $group)
-                            <a class="btn" href="{{ url('group/' . $group->join_code) }}">{{ $group->name }}</a>
-                        @endforeach
-                        <h4>All Groups</h4>
-                        @foreach ($allgroups as $group)
-                            <p>{{ $group->name }} 
-                                <a href="{{ url('join/' . $group->join_code) }}">Join</a></p>
-                        @endforeach
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col">
+        <div class="pt-4 ">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">My Groups</h5>
+                <p class="card-text">
+                    @foreach ($groups as $group)
+                    <a class="btn" href="{{ url('group/' . $group->join_code) }}">{{ $group->name }}</a>
+                    @endforeach
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="pt-4 ">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">All Groups</h5>
+            <p class="card-text">
+                @foreach ($allgroups as $group)
+                <p>{{ $group->name }} 
+                    <a href="{{ url('join/' . $group->join_code) }}">Join</a></p>
+                    @endforeach
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </x-app-layout>
