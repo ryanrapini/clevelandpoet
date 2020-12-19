@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [PageController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
+Route::get('/group/{join_code}', [PageController::class, 'group'])->middleware(['auth'])->name('group');
+
 Route::get('/join/{join_code}', [PageController::class, 'joinGroup']);
 Route::get('/join/{join_code}/confirm', [PageController::class, 'confirmJoinGroup']);
 

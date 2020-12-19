@@ -24,6 +24,19 @@ class PageController extends Controller
         ]);
     }
 
+    public function group(Request $request, $join_code)
+    {
+        $user = $request->user();
+
+        $target_group = Group::where('join_code', $join_code)->with('users')->first();
+
+        if(!$target_group) {
+            return view('error', ['message' => 'Invalid group!']);
+        }
+
+        return view('group', ['group' => $target_group]);
+    }
+
     public function joinGroup(Request $request, $join_code)
     {
         $target_group = Group::where('join_code', $join_code)->first();
