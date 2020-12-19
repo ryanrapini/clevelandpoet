@@ -9,7 +9,18 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                    @foreach ($users as $user)
+                        <p>{{ $user->id }}</p>
+                        <p>{{ $user->name }}</p>
+                        <p>{{ $user->email }}</p>
+                        <img src="{{ $user->photo_url }}"></img>
+                    @endforeach
+                </div>
+                <div class="p-6 bg-white border-b">
+                    @foreach ($groups as $group)
+                        <p>{{ $group->name }}</p>
+                        <p>{{ $group->join_code }}</p>
+                    @endforeach
                 </div>
             </div>
         </div>
